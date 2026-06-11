@@ -20,41 +20,6 @@ SSH (Secure Shell) ek secure authentication method hai jo local machine ko GitHu
 ```bash
 ssh-keygen -t ed25519 -C "your-email@example.com"
 ```
-
-### Example
-
-```bash
-ssh-keygen -t ed25519 -C "kajal@example.com"
-```
-
----
-
-## Start SSH Agent
-
-```bash
-eval "$(ssh-agent -s)"
-```
-
----
-
-## Add SSH Key
-
-```bash
-ssh-add ~/.ssh/id_ed25519
-```
-
----
-
-## View Public Key
-
-```bash
-cat ~/.ssh/id_ed25519.pub
-```
-
-Copy the generated public key and add it to GitHub.
-
----
-
 ## Add SSH Key to GitHub
 
 1. Open GitHub Settings.
@@ -96,28 +61,6 @@ git remote -v
 git remote set-url origin git@github.com:username/repository.git
 ```
 
-### Example
-
-```bash
-git remote set-url origin git@github.com:KajalGupta2345/FoodieHub-.git
-```
-
----
-
-## Verify SSH Remote
-
-```bash
-git remote -v
-```
-
-### Output
-
-```text
-origin  git@github.com:username/repository.git
-```
-
----
-
 # 👥 Multiple GitHub Accounts on One System Using SSH
 
 ## Definition
@@ -148,86 +91,96 @@ ssh-keygen -t ed25519 -C "personal@gmail.com" -f ~/.ssh/id_ed25519_personal
 ssh-keygen -t ed25519 -C "work@company.com" -f ~/.ssh/id_ed25519_work
 ```
 
+# 🔐 Difference Between HTTPS and SSH in GitHub
+
+| Feature           | HTTPS                                  | SSH                                              |
+| ----------------- | -------------------------------------- | ------------------------------------------------ |
+| Full Form         | HyperText Transfer Protocol Secure     | Secure Shell                                     |
+| Authentication    | Username + Personal Access Token (PAT) | SSH Key Pair                                     |
+| Login Requirement | Credentials enter karne pad sakte hain | One-time SSH setup ke baad login ki zarurat nahi |
+| Security          | Secure                                 | More Secure                                      |
+| Setup             | Easy                                   | Thoda complex                                    |
+| Multiple Accounts | Difficult to manage                    | Easy to manage                                   |
+| Automation        | Less convenient                        | Preferred for CI/CD and servers                  |
+| Clone URL Example | `https://github.com/user/repo.git`     | `git@github.com:user/repo.git`                   |
+
 ---
 
-## Add Keys to SSH Agent
+## HTTPS
+
+### Definition
+
+HTTPS GitHub repositories ko access karne ka ek method hai jisme username aur Personal Access Token (PAT) ke through authentication hoti hai.
+
+### Example
 
 ```bash
-ssh-add ~/.ssh/id_ed25519_personal
-ssh-add ~/.ssh/id_ed25519_work
+git clone https://github.com/username/repository.git
 ```
 
 ---
 
-## Create SSH Config File
+## SSH
 
-File Location:
+### Definition
+
+SSH (Secure Shell) GitHub repositories ko access karne ka ek secure method hai jo SSH key pair ke through authentication provide karta hai.
+
+### Example
+
+```bash
+git clone git@github.com:username/repository.git
+```
+
+---
+
+## When to Use HTTPS?
+
+* Beginners ke liye
+* Quick setup ke liye
+* Temporary systems par
+
+### Example
+
+```bash
+git push origin main
+```
+
+Authentication PAT se hogi.
+
+---
+
+## When to Use SSH?
+
+* Regular GitHub users ke liye
+* Multiple GitHub accounts use karne ke liye
+* CI/CD pipelines ke liye
+* Servers aur automation ke liye
+
+### Example
+
+```bash
+git push origin main
+```
+
+Authentication SSH key se hogi.
+
+---
+
+## Repository URL Example
+
+### HTTPS
 
 ```text
-~/.ssh/config
+https://github.com/KajalGupta2345/FoodieHub-.git
 ```
 
-### Configuration
+### SSH
 
 ```text
-Host github-personal
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/id_ed25519_personal
-
-Host github-work
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/id_ed25519_work
+git@github.com:KajalGupta2345/FoodieHub-.git
 ```
+
 
 ---
 
-## Test Connections
-
-### Personal Account
-
-```bash
-ssh -T git@github-personal
-```
-
-### Work Account
-
-```bash
-ssh -T git@github-work
-```
-
----
-
-## Clone Repository Using Specific Account
-
-### Personal Account
-
-```bash
-git clone git@github-personal:username/repository.git
-```
-
-### Work Account
-
-```bash
-git clone git@github-work:company/repository.git
-```
-
----
-
-## Verify Config
-
-```bash
-ssh -T git@github-personal
-ssh -T git@github-work
-```
-
-### Output
-
-```text
-Hi PersonalUser! You've successfully authenticated.
-```
-
-```text
-Hi WorkUser! You've successfully authenticated.
-```
