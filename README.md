@@ -1,33 +1,111 @@
-# 🔑 SSH in GitHub
+# 🔐 Difference Between HTTPS and SSH in GitHub
 
 ## Definition
 
-SSH (Secure Shell) ek secure authentication method hai jo local machine ko GitHub se connect karta hai. SSH key pair ka use karke users repositories ko access, push aur pull kar sakte hain bina har baar username aur password enter kiye.
+GitHub repositories ko access karne ke liye HTTPS aur SSH dono methods use kiye jate hain. HTTPS secure web connection use karta hai, jabki SSH secure key-based authentication provide karta hai.
 
 ---
 
-## Use
+## Difference Between HTTPS and SSH
 
-* Secure authentication ke liye
-* Git push aur pull operations ke liye
-* Password-less login ke liye
-* GitHub repositories manage karne ke liye
+| Feature | HTTPS | SSH |
+|----------|--------|------|
+| Full Form | HyperText Transfer Protocol Secure | Secure Shell |
+| Authentication | GitHub Account Credentials | SSH Key Pair |
+| Login Requirement | Credentials enter karne pad sakte hain | One-time SSH setup ke baad login ki zarurat nahi |
+| Security | Secure | More Secure |
+| Setup | Easy | Thoda Complex |
+| Multiple Accounts | Difficult to Manage | Easy to Manage |
+| Automation | Less Convenient | Preferred for CI/CD and Servers |
+| Clone URL Example | `https://github.com/user/repo.git` | `git@github.com:user/repo.git` |
 
 ---
+
+# 🌐 HTTPS
+
+## Definition
+
+HTTPS GitHub repositories ko access karne ka ek method hai jisme secure internet connection ke through repository ko access kiya jata hai.
+
+## Configure User
+
+```bash
+git config --global user.name "Kajal Gupta"
+git config --global user.email "kajal@gmail.com"
+```
+
+## Clone Repository
+
+```bash
+git clone https://github.com/username/repository.git
+```
+
+## Push Changes
+
+```bash
+git push origin main
+```
+
+## Repository URL Example
+
+```text
+https://github.com/KajalGupta2345/FoodieHub-.git
+```
+
+---
+
+# 🔑 SSH
+
+## Definition
+
+SSH (Secure Shell) GitHub repositories ko access karne ka ek secure method hai jo SSH key pair ke through authentication provide karta hai.
 
 ## Generate SSH Key
 
 ```bash
 ssh-keygen -t ed25519 -C "your-email@example.com"
 ```
+
+### Example
+
+```bash
+ssh-keygen -t ed25519 -C "kajal@gmail.com"
+```
+
+---
+
+## Start SSH Agent
+
+```bash
+eval "$(ssh-agent -s)"
+```
+
+---
+
+## Add SSH Key
+
+```bash
+ssh-add ~/.ssh/id_ed25519
+```
+
+---
+
+## View Public Key
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+---
+
 ## Add SSH Key to GitHub
 
-1. Open GitHub Settings.
-2. Click **SSH and GPG Keys**.
-3. Click **New SSH Key**.
-4. Enter a title.
-5. Paste the public key.
-6. Click **Add SSH Key**.
+1. Open GitHub Settings
+2. Click **SSH and GPG Keys**
+3. Click **New SSH Key**
+4. Enter Title
+5. Paste Public Key
+6. Click **Add SSH Key**
 
 ---
 
@@ -45,14 +123,6 @@ Hi username! You've successfully authenticated.
 
 ---
 
-## Check Current Remote URL
-
-```bash
-git remote -v
-```
-
----
-
 ## Change HTTPS to SSH
 
 ### Syntax
@@ -61,23 +131,37 @@ git remote -v
 git remote set-url origin git@github.com:username/repository.git
 ```
 
-# 👥 Multiple GitHub Accounts on One System Using SSH
+### Example
+
+```bash
+git remote set-url origin git@github.com:KajalGupta2345/FoodieHub-.git
+```
+
+---
+
+## Verify SSH Remote
+
+```bash
+git remote -v
+```
+
+### Output
+
+```text
+origin  git@github.com:KajalGupta2345/FoodieHub-.git
+```
+
+---
+
+# 👥 Multiple GitHub Accounts Using SSH
 
 ## Definition
 
-SSH ki help se ek hi system par multiple GitHub accounts use kiye ja sakte hain. Har GitHub account ke liye alag SSH key generate ki jati hai aur SSH config file ke through unhe manage kiya jata hai.
+SSH ki help se ek hi system par multiple GitHub accounts use kiye ja sakte hain. Har account ke liye alag SSH key generate ki jati hai aur SSH config file ke through manage kiya jata hai.
 
 ---
 
-## Use
-
-* Personal aur Work GitHub account ek saath use karna
-* Different repositories ko different accounts se manage karna
-* Account switching ki zarurat na padna
-
----
-
-## Generate SSH Keys for Multiple Accounts
+## Generate SSH Keys
 
 ### Personal Account
 
@@ -91,87 +175,74 @@ ssh-keygen -t ed25519 -C "personal@gmail.com" -f ~/.ssh/id_ed25519_personal
 ssh-keygen -t ed25519 -C "work@company.com" -f ~/.ssh/id_ed25519_work
 ```
 
-
-# 🔐 Difference Between HTTPS and SSH in GitHub
-
-| Feature           | HTTPS                                  | SSH                                              |
-| ----------------- | -------------------------------------- | ------------------------------------------------ |
-| Full Form         | HyperText Transfer Protocol Secure     | Secure Shell                                     |
-| Authentication    | GitHub Account Authentication          | SSH Key Pair                                     |
-| Login Requirement | Credentials enter karne pad sakte hain | One-time SSH setup ke baad login ki zarurat nahi |
-| Security          | Secure                                 | More Secure                                      |
-| Setup             | Easy                                   | Thoda complex                                    |
-| Multiple Accounts | Difficult to manage                    | Easy to manage                                   |
-| Automation        | Less convenient                        | Preferred for CI/CD and servers                  |
-| Clone URL Example | `https://github.com/user/repo.git`     | `git@github.com:user/repo.git`                   |
-
 ---
 
-## HTTPS
-
-### Definition
-
-HTTPS GitHub repositories ko access karne ka ek method hai jisme internet ke through secure connection establish kiya jata hai.
-
-### Example
+## Add Keys to SSH Agent
 
 ```bash
-git clone https://github.com/username/repository.git
+ssh-add ~/.ssh/id_ed25519_personal
+ssh-add ~/.ssh/id_ed25519_work
 ```
 
 ---
 
-## SSH
+## Create SSH Config File
 
-### Definition
+File Location:
 
-SSH (Secure Shell) GitHub repositories ko access karne ka ek secure method hai jo SSH key pair ke through authentication provide karta hai.
+```text
+~/.ssh/config
+```
 
-### Example
+### Configuration
 
-```bash
-git clone git@github.com:username/repository.git
+```text
+Host github-personal
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_personal
+
+Host github-work
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_ed25519_work
 ```
 
 ---
 
-## When to Use HTTPS?
+## Test Connections
 
-* Beginners ke liye
-* Quick setup ke liye
-* Temporary systems par
-* Jab SSH setup nahi kiya ho
-
-### Example
+### Personal Account
 
 ```bash
-git push origin main
+ssh -T git@github-personal
+```
+
+### Work Account
+
+```bash
+ssh -T git@github-work
 ```
 
 ---
 
-## When to Use SSH?
+## Clone Repository Using Specific Account
 
-* Regular GitHub users ke liye
-* Multiple GitHub accounts use karne ke liye
-* CI/CD pipelines ke liye
-* Servers aur automation ke liye
-
-### Example
+### Personal Account
 
 ```bash
-git push origin main
+git clone git@github-personal:username/repository.git
+```
+
+### Work Account
+
+```bash
+git clone git@github-work:company/repository.git
 ```
 
 ---
 
 ## Repository URL Example
-
-### HTTPS
-
-```text
-https://github.com/KajalGupta2345/FoodieHub-.git
-```
 
 ### SSH
 
@@ -181,5 +252,21 @@ git@github.com:KajalGupta2345/FoodieHub-.git
 
 ---
 
+## Viva Questions
 
-HTTPS uses a secure web connection to access GitHub repositories, while SSH uses SSH keys for authentication. HTTPS is easier to set up, whereas SSH is more secure and convenient for frequent Git operations, automation, CI/CD pipelines, and managing multiple GitHub accounts. 🚀
+### What is HTTPS?
+
+HTTPS is a secure method used to access GitHub repositories through a web-based connection.
+
+### What is SSH?
+
+SSH (Secure Shell) is a secure authentication method that uses SSH key pairs to access GitHub repositories.
+
+### What is the difference between HTTPS and SSH?
+
+HTTPS uses a secure web connection, while SSH uses SSH keys for authentication. SSH is more secure and convenient for automation, CI/CD pipelines, and managing multiple GitHub accounts.
+
+### Can we use multiple GitHub accounts on the same system using SSH?
+
+Yes. Multiple GitHub accounts can be used on the same system by generating separate SSH keys for each account and configuring them in the SSH config file.
+```` 🚀
