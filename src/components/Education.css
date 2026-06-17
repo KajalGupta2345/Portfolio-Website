@@ -1,0 +1,152 @@
+.education {
+  background: var(--clr-bg);
+}
+
+.education__header {
+  margin-bottom: var(--space-12);
+}
+
+.education__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-10);
+}
+
+/* ✅ Add this */
+.edu-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.education__col-title {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--clr-text-secondary);
+  margin-bottom: var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: var(--text-xs);
+}
+
+.education__col-icon {
+  font-size: 1.1rem;
+}
+
+/* Cards */
+.edu-card {
+  background: var(--clr-bg-card);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition: border-color var(--transition);
+  position: relative;
+}
+
+.edu-card:hover {
+  border-color: var(--clr-accent-dim);
+}
+
+.edu-card--exp {
+  border-left: 3px solid var(--clr-accent-dim);
+}
+
+.edu-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.edu-card__degree {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--clr-text-primary);
+  line-height: 1.3;
+  margin-bottom: var(--space-1);
+}
+
+.edu-card__institution {
+  font-size: var(--text-sm);
+  color: var(--clr-accent-bright);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.edu-card__type {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--clr-teal);
+  background: var(--clr-teal-dim);
+  padding: 1px 8px;
+  border-radius: var(--radius-full);
+}
+
+.edu-card__location {
+  font-size: var(--text-xs);
+  color: var(--clr-text-muted);
+  margin-top: var(--space-1);
+}
+
+.edu-card__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+  flex-shrink: 0;
+}
+
+.edu-card__period {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--clr-text-muted);
+  white-space: nowrap;
+}
+
+.edu-card__cgpa {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--clr-teal);
+  white-space: nowrap;
+}
+
+/* Details list */
+.edu-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--clr-border);
+}
+
+.edu-card__detail {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--clr-text-secondary);
+  line-height: 1.6;
+}
+
+.edu-card__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--clr-accent);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+
+@media (max-width: 768px) {
+  .education__layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+}
